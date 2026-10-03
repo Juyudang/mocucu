@@ -3,16 +3,12 @@
   const DAY = 86400000;
   const today = new Date(); today.setHours(0, 0, 0, 0);
 
-  const PALETTES = {
-    idea: ["#ffcf3d", "#ff8a3d"], marketing: ["#ff5e8a", "#ff9a6b"], video: ["#1e1b4b", "#6d28d9"],
-    art: [["#fde68a", "#f472b6"], ["#a7f3d0", "#60a5fa"], ["#fecaca", "#fb923c"], ["#e9d5ff", "#818cf8"], ["#fef3c7", "#34d399"], ["#1f2937", "#f59e0b"]],
-    design: ["#22d3ee", "#a855f7"], writing: ["#f5efe0", "#d8c8a8"], it: ["#0f172a", "#2563eb"],
-    science: ["#0ea5e9", "#14b8a6"], social: ["#4ade80", "#15803d"], startup: ["#f43f5e", "#7c3aed"],
-    music: ["#111827", "#db2777"],
-  };
-  const LIGHT_POSTER = ["writing", "idea", "art"];
-  const ICONS = { art: ["🖼️", "🎨", "🖌️", "✏️", "🖍️", "🌈", "🌻"] };
-
+  // 포스터 색: [배경, 강조, 글자]
+  const COLORS = [
+    ["#1f3c88", "#ffcc00", "#fff"], ["#f4efe6", "#d0021b", "#1a1a1a"], ["#0b6e4f", "#f2e8cf", "#fff"],
+    ["#ffde59", "#111", "#111"], ["#e8f1f8", "#1f3c88", "#13213c"], ["#c8102e", "#fff", "#fff"],
+    ["#222", "#ff7a00", "#fff"], ["#fbe3e8", "#7a1f3d", "#3a0d1c"], ["#5b3fa0", "#b8f2e6", "#fff"],
+  ];
   const contests = CONTESTS.map((c, i) => ({
     ...c,
     id: i + 1,
@@ -50,21 +46,20 @@
   const ddayText = (d) => (d < 0 ? "마감" : d === 0 ? "D-Day" : `D-${d}`);
   const ddayClass = (d) => (d < 0 ? "closed" : d <= 3 ? "urgent" : d <= 7 ? "soon" : "");
 
+  // CSS 포스터: 단색 배경 + 타이포. 제목 해시로 색과 레이아웃(3종)을 고른다
   function poster(c, big = false) {
-    let pal = PALETTES[c.cat] || ["#888", "#444"];
     const h = [...c.title].reduce((n, ch) => (n * 31 + ch.charCodeAt(0)) >>> 0, 7);
-    if (Array.isArray(pal[0])) pal = pal[h % pal.length];
-    const [a, b] = pal;
-    const darkBg = /^#[0-3]/.test(a);
-    const ink = LIGHT_POSTER.includes(c.cat) && !darkBg ? "#2b2113" : "#fff";
-    const icons = ICONS[c.cat];
-    const icon = icons ? icons[(h >>> 3) % icons.length] : catOf(c.cat).icon;
-    return `<div class="poster ${big ? "big" : ""}" style="--pa:${a};--pb:${b};color:${ink}">
-      <span class="p-host">${c.host}</span>
-      <span class="p-icon">${icon}</span>
-      <strong class="p-title">${c.title.replace(/^제\d+회\s*/, "").replace(/\s*\d{4}\s*/, " ")}</strong>
+    const [bg, accent, ink] = COLORS[h % COLORS.length];
+    const layout = ["pl-a", "pl-b", "pl-c"][(h >>> 4) % 3];
+    const edition = (c.title.match(/^제(\d+)회/) || [])[1];
+    const name = c.title.replace(/^제\d+회\s*/, "").replace(/^\d{4}\s*/, "");
+    const year = c.startDate.getFullYear();
+    return `<div class="poster ${layout} ${big ? "big" : ""}" style="--bg:${bg};--ac:${accent};--ink:${ink}">
+      <span class="p-top">${edition ? `제${edition}회` : year}</span>
+      <span class="p-mark"></span>
+      <strong class="p-title">${name}</strong>
       <span class="p-meta">대상 ${fmtPrize(c.first)}</span>
-      <span class="p-date">~ ${fmtDate(c.endDate).slice(5)}</span>
+      <span class="p-foot"><b>${c.host}</b>접수 ~ ${fmtDate(c.endDate).slice(5)}</span>
     </div>`;
   }
 

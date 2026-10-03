@@ -27,94 +27,110 @@
   ];
   const theme = c.theme || `${cat.label} 분야 자유 주제`;
 
+  const regDate = new Date(c.startDate.getTime() - 2 * 86400000);
+  const awardRows = awards.map(([n, k, m]) => `<tr><td>${n}</td><td>${k}명</td><td>${m ? fmtPrize(m) : "상장 및 부상"}</td></tr>`).join("");
+  const awardText = awards.filter(([, , m]) => m).map(([n, k, m]) => `${n} ${k}명(${fmtPrize(m)})`).join(", ");
+  const subField = c.cat === "art" ? "회화, 일러스트, 디지털 드로잉" : cat.label;
+
+  function favBtn(on) {
+    return `<button class="fav-btn ${on ? "on" : ""}" id="favBtn" aria-pressed="${on}">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      즐겨찾기 <em>${fmtNum(c.scraps + (on ? 1 : 0))}</em></button>`;
+  }
+
   function render() {
     const fav = favs.has(c.id);
     $("#detail").innerHTML = `
       <header class="dt-head">
-        <div class="labels">
-          <span class="lb cat-lb">${cat.label}</span>
-          ${c.hot ? '<span class="lb hot">HOT</span>' : ""}
-          <span class="dday-sm ${ddayClass(c.dday)}">${ddayText(c.dday)}</span>
-        </div>
         <h1>${c.title}</h1>
-        <p class="dt-sub">${c.host} · 조회 ${fmtNum(c.views)}</p>
+        <span class="dt-dday ${c.dday < 0 ? "closed" : ""}">${ddayText(c.dday)}</span>
+        <p class="dt-sub"><span>등록일 ${fmtDate(regDate)}</span><span>조회수 ${fmtNum(c.views)}</span><span>즐겨찾기 ${fmtNum(c.scraps)}</span></p>
       </header>
 
       <div class="dt-top">
-        <div class="dt-poster">${poster(c, true)}</div>
+        <div class="dt-poster">${poster(c, true)}<a class="zoom" href="#" data-toast="포스터 원본을 불러오는 중입니다…">🔍 포스터 크게보기</a></div>
         <div class="dt-info">
-          <div class="prize-hero">
-            <span class="ph-label">대상 상금</span>
-            <strong class="ph-amount">${fmtNum(c.first)}<small>만 원</small></strong>
-            <span class="ph-total">총 상금 ${fmtPrize(c.prize)}</span>
-          </div>
-          <table class="d-table">
-            <tr><th>주최/주관</th><td>${c.host}</td></tr>
-            <tr><th>응모 대상</th><td>${c.target.join(", ")}</td></tr>
-            <tr><th>접수 기간</th><td>${fmtDate(c.startDate)} ~ ${fmtDate(c.endDate)}</td></tr>
-            <tr><th>공모 주제</th><td><b>${theme}</b></td></tr>
-            <tr><th>입상 혜택</th><td>${c.benefit.length ? c.benefit.join(", ") : "-"}</td></tr>
-            <tr><th>홈페이지</th><td><a href="#" data-toast="외부 사이트로 이동합니다.">www.${c.id}contest.example</a></td></tr>
+          <table class="info-tbl">
+            <tr><th>주최</th><td>${c.host}</td></tr>
+            <tr><th>주관</th><td>${c.host} 사무국</td></tr>
+            <tr><th>응모분야</th><td>${subField}</td></tr>
+            <tr><th>참가자격</th><td>${c.target.join(", ")}${c.target.includes("청소년") ? " (만 13~18세 중·고등학생)" : ""}</td></tr>
+            <tr><th>접수기간</th><td>${fmtDate(c.startDate)} ~ ${fmtDate(c.endDate)}</td></tr>
+            <tr><th>총 상금</th><td>${fmtPrize(c.prize)}</td></tr>
+            <tr class="prize-row"><th>대상 상금</th><td>${fmtNum(c.first)}만 원</td></tr>
+            <tr><th>시상내역</th><td>${awardText}</td></tr>
+            <tr><th>홈페이지</th><td><a href="#" data-toast="외부 사이트로 이동합니다.">http://www.${c.id}contest.example</a></td></tr>
+            <tr><th>첨부파일</th><td><a href="#" class="file" data-toast="파일을 내려받는 중입니다…">${c.title.replace(/'.*?'|〈.*?〉/g, "").trim()}_공모요강.hwp</a></td></tr>
           </table>
           <div class="dt-actions">
-            <button class="fav-btn ${fav ? "on" : ""}" id="favBtn" aria-pressed="${fav}">
-              <svg viewBox="0 0 24 24" width="26" height="26"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-              <span>${fav ? "즐겨찾기 완료" : "즐겨찾기"}</span>
-              <em>${fmtNum(c.scraps + (fav ? 1 : 0))}</em>
-            </button>
-            <button class="btn-primary" data-toast="${c.dday < 0 ? "접수가 마감된 공모전입니다." : "공식 접수 페이지로 이동합니다..."}" ${c.dday < 0 ? "disabled" : ""}>${c.dday < 0 ? "접수 마감" : "지원하기"}</button>
-            <button class="btn-outline" data-toast="링크가 복사되었습니다.">공유</button>
+            ${favBtn(fav)}
+            <button class="apply" data-toast="${c.dday < 0 ? "접수가 마감된 공모전입니다." : "공식 홈페이지 접수 페이지로 이동합니다…"}" ${c.dday < 0 ? "disabled" : ""}>${c.dday < 0 ? "접수마감" : "홈페이지 지원하기"}</button>
+            <button data-toast="URL이 복사되었습니다.">공유</button>
           </div>
         </div>
       </div>
 
+      <nav class="dt-tabs"><a href="#" class="on">상세정보</a><a href="#" data-toast="등록된 문의가 없습니다.">Q&amp;A (0)</a><a href="#" data-toast="댓글을 불러오는 중입니다…">댓글 (${(c.id * 7) % 23})</a></nav>
+
       <section class="d-body">
-        <h3>공모 개요</h3>
-        <p>${c.host}에서 주최하는 「${c.title}」에 여러분을 초대합니다. 참신한 시각과 열정을 가진 ${c.target.join("·")}이라면 누구나 참여할 수 있으며,
-           우수작은 ${c.benefit.includes("전시 기회") ? "온·오프라인 전시와 함께 " : ""}다양한 채널을 통해 소개될 예정입니다.</p>
-        <h3>공모 주제</h3>
-        <p class="theme-box">${theme}</p>
-        <h3>시상 내역</h3>
-        <table class="d-prize">
-          <tr><th>구분</th><th>시상 수</th><th>상금</th></tr>
-          ${awards.map(([n, k, m]) => `<tr><td>${n}</td><td>${k}명</td><td>${m ? fmtPrize(m) : "상장 및 부상"}</td></tr>`).join("")}
-        </table>
-        <h3>응모 방법</h3>
-        <ol>
-          <li>작품 규격: ${c.cat === "art" ? "4절 ~ 2절 (재료 제한 없음, 디지털 작업 시 A3 300dpi 이상)" : "자유"}</li>
-          <li>공식 홈페이지에서 참가신청서 작성 후 작품 이미지 업로드</li>
-          <li>접수 마감: ${fmtDate(c.endDate)} 23:59까지</li>
-        </ol>
-        <h3>유의 사항</h3>
+        <div class="notice-img">${poster(c, true)}</div>
+        <h3>공모주제</h3>
+        <p class="theme">${theme}</p>
+        <h3>응모자격</h3>
+        <p>${c.target.join(", ")}${c.target.includes("청소년") ? " (만 13~18세 중·고등학생, 학교 밖 청소년 포함)" : ""} / 개인 참가만 가능</p>
+        <h3>접수기간</h3>
+        <p>${fmtDate(c.startDate)}(${"일월화수목금토"[c.startDate.getDay()]}) ~ ${fmtDate(c.endDate)}(${"일월화수목금토"[c.endDate.getDay()]}) 23:59까지</p>
+        <h3>응모규격</h3>
         <ul>
-          <li>타 공모전 수상작, 표절 작품은 심사에서 제외되며 수상 이후에도 취소될 수 있습니다.</li>
-          <li>제출된 작품의 저작권은 응모자에게 있으며, 주최 측은 홍보 목적으로 활용할 수 있습니다.</li>
-          <li>문의: contest@${c.id}host.example</li>
+          <li>${c.cat === "art" ? "4절 ~ 2절 크기, 재료 및 기법 제한 없음" : "형식 자유"}</li>
+          <li>디지털 작품은 A3 크기 300dpi 이상 JPG 또는 PDF</li>
+          <li>1인 1작품 응모 원칙</li>
         </ul>
-      </section>`;
+        <h3>시상내역</h3>
+        <table class="d-prize"><tr><th>구분</th><th>인원</th><th>상금</th></tr>${awardRows}</table>
+        <p class="note">※ 제세공과금은 수상자 본인 부담입니다.</p>
+        <h3>제출방법</h3>
+        <ol>
+          <li>공식 홈페이지 회원가입 후 온라인 접수</li>
+          <li>참가신청서(첨부파일 양식) 작성 후 작품 이미지와 함께 업로드</li>
+        </ol>
+        <h3>심사 및 발표</h3>
+        <p>1차 서류심사 → 2차 원화심사 / 결과 발표: ${fmtDate(new Date(c.endDate.getTime() + 21 * 86400000))} 홈페이지 공지 및 개별 연락</p>
+        <h3>유의사항</h3>
+        <ul>
+          <li>타 공모전 수상작, 표절 및 모작이 확인될 경우 수상이 취소됩니다.</li>
+          <li>수상작의 저작권은 응모자에게 있으며, 주최 측은 홍보 목적으로 사용할 수 있습니다.</li>
+          <li>제출된 작품은 반환하지 않습니다.</li>
+        </ul>
+        <h3>문의처</h3>
+        <p>${c.host} 공모전 사무국 (contest@${c.id}host.example / 02-000-${String(1000 + c.id * 37).slice(-4)})</p>
+      </section>
+      <div class="list-btns"><a href="index.html" data-back>목록</a><a class="dark" href="#" onclick="scrollTo({top:0});return false">맨위로</a></div>`;
 
     $("#favBtn").addEventListener("click", (e) => {
       const on = toggleFav(c.id);
       const btn = e.currentTarget;
       btn.classList.toggle("on", on);
+      btn.setAttribute("aria-pressed", on);
       btn.classList.remove("pop"); void btn.offsetWidth; if (on) btn.classList.add("pop");
-      btn.querySelector("span").textContent = on ? "즐겨찾기 완료" : "즐겨찾기";
       btn.querySelector("em").textContent = fmtNum(c.scraps + (on ? 1 : 0));
     });
   }
 
+  function relList(list) {
+    return `<ul class="rel">${list.map((x) => `
+      <li><a href="detail.html?id=${x.id}">
+        <div class="rel-thumb">${poster(x)}</div>
+        <div><b>${x.title}</b><span><em>${ddayText(x.dday)}</em> · 대상 ${fmtPrize(x.first)}</span></div>
+      </a></li>`).join("")}</ul>`;
+  }
   function renderRelated() {
-    const rel = contests.filter((x) => x.cat === c.cat && x.id !== c.id && x.dday >= 0)
-      .sort((a, b) => b.views - a.views).slice(0, 5);
+    const open = contests.filter((x) => x.id !== c.id && x.dday >= 0);
+    const same = open.filter((x) => x.cat === c.cat).sort((a, b) => b.views - a.views).slice(0, 5);
+    const soon = open.filter((x) => x.cat === c.cat).sort((a, b) => a.dday - b.dday).slice(0, 4);
     $("#related").innerHTML = `
-      <div class="box">
-        <h3>같은 분야 공모전</h3>
-        <ul class="rel">${rel.map((x) => `
-          <li><a href="detail.html?id=${x.id}">
-            <div class="rel-thumb">${poster(x)}</div>
-            <div><b>${x.title}</b><span>대상 ${fmtPrize(x.first)} · ${ddayText(x.dday)}</span></div>
-          </a></li>`).join("")}</ul>
-      </div>`;
+      <div class="side-box"><h3>같은 분야 인기 공모전</h3>${relList(same)}</div>
+      <div class="side-box"><h3>마감 임박</h3>${relList(soon)}</div>`;
   }
 
   document.addEventListener("click", (e) => {
