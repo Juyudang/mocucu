@@ -74,27 +74,16 @@ window.CONTESTS = [
 ];
 
 /* ── S#2 촬영용: 청소년 미술 공모전 ──────────────────────────────
-   scene 값이 있는 3개가 시나리오 속 공모전 (대상 45만 / 90만 / 180만 원).
+   scene 값이 있는 3개가 시나리오 속 공모전 (대상 45만 / 90만 / 180만 원). 열린 미술 공모전은 5개만 둔다.
    first = 대상 상금(만원), theme = 공모 주제 */
 window.CONTESTS.unshift(
-  { scene: "45",  title: "제7회 푸른꿈 청소년 그림 공모전 '나의 내일'", host: "푸른꿈청소년재단", hostType: "비영리/협회", cat: "art", target: ["청소년"], prize: 150, first: 45, start: -9, end: 12, views: 4120, scraps: 233, benefit: ["상장 수여"], theme: "10년 뒤 나의 하루" },
-  { scene: "90",  title: "2026 전국 청소년 미술대전 '빛과 그림자'", host: "한국청소년미술협회", hostType: "비영리/협회", cat: "art", target: ["청소년"], prize: 300, first: 90, start: -6, end: 17, views: 6380, scraps: 412, benefit: ["상장 수여", "전시 기회"], theme: "빛과 그림자" },
+  /* 기본 정렬(최신순)에서 45만 → 90만 → 180만 순서로 위에서부터 보이도록 start 값을 맞춤 */
+  { scene: "45",  title: "제7회 푸른꿈 청소년 그림 공모전 '나의 내일'", host: "푸른꿈청소년재단", hostType: "비영리/협회", cat: "art", target: ["청소년"], prize: 150, first: 45, start: -2, end: 12, views: 4120, scraps: 233, benefit: ["상장 수여"], theme: "10년 뒤 나의 하루" },
+  { scene: "90",  title: "2026 전국 청소년 미술대전 '빛과 그림자'", host: "한국청소년미술협회", hostType: "비영리/협회", cat: "art", target: ["청소년"], prize: 300, first: 90, start: -3, end: 17, views: 6380, scraps: 412, benefit: ["상장 수여", "전시 기회"], theme: "빛과 그림자" },
   { scene: "180", title: "제5회 한빛 청소년 미술 공모전", host: "한빛문화재단", hostType: "비영리/협회", cat: "art", target: ["청소년"], prize: 600, first: 180, start: -4, end: 21, views: 9874, scraps: 871, benefit: ["상장 수여", "전시 기회", "해외연수"], hot: true, theme: "현대사회 속 인간성의 회복" },
-  { title: "청소년 환경 포스터 공모전 '숨 쉬는 지구'", host: "기후에너지청", hostType: "정부/공공기관", cat: "art", target: ["청소년"], prize: 100, first: 30, start: -12, end: 9, views: 2210, scraps: 98, benefit: ["상장 수여"] },
-  { title: "제12회 전국 학생 웹툰 공모전", host: "하이퍼툰", hostType: "중견/중소기업", cat: "art", target: ["청소년", "대학생"], prize: 400, first: 100, start: -15, end: 6, views: 7730, scraps: 655, benefit: ["전시 기회"] },
-  { title: "우리 동네 풍경 그리기 대회", host: "가람구청", hostType: "지자체", cat: "art", target: ["청소년"], prize: 60, first: 20, start: -5, end: 4, views: 1320, scraps: 41, benefit: ["상장 수여"] },
-  { title: "청소년 캐릭터 그리기 공모 '안녕, 몽이 친구들'", host: "몽글몽글 스튜디오", hostType: "중견/중소기업", cat: "art", target: ["청소년"], prize: 150, first: 50, start: -3, end: 19, views: 3050, scraps: 188, benefit: ["전시 기회"] },
-  { title: "제20회 전국 학생 서예·미술 실기대회", host: "한국미술교육회", hostType: "비영리/협회", cat: "art", target: ["청소년"], prize: 200, first: 60, start: -20, end: 3, views: 2890, scraps: 120, benefit: ["상장 수여"] },
-  { title: "독도 사랑 그림 그리기 공모", host: "국토지킴이재단", hostType: "비영리/협회", cat: "art", target: ["청소년"], prize: 90, first: 30, start: -11, end: 14, views: 1580, scraps: 66, benefit: ["상장 수여"] },
-  { title: "2026 청소년 디지털 아트 챌린지", host: "(주)픽셀랩", hostType: "중견/중소기업", cat: "art", target: ["청소년"], prize: 500, first: 150, start: -2, end: 28, views: 5410, scraps: 502, benefit: ["전시 기회", "인턴 채용"] },
-  { title: "평화·통일 미술 공모전", host: "평화나눔재단", hostType: "비영리/협회", cat: "art", target: ["청소년", "대학생"], prize: 250, first: 70, start: -18, end: 11, views: 2004, scraps: 87, benefit: ["상장 수여"] },
-  { title: "청소년 인권 포스터 공모 '모두의 자리'", host: "희망나눔재단", hostType: "비영리/협회", cat: "art", target: ["청소년"], prize: 120, first: 40, start: -7, end: 8, views: 1760, scraps: 72, benefit: ["상장 수여"] },
-  { title: "소방안전 포스터 그리기 대회", host: "별빛시청", hostType: "지자체", cat: "art", target: ["청소년"], prize: 80, first: 30, start: -13, end: 2, views: 1190, scraps: 35, benefit: ["상장 수여"] },
-  { title: "청소년 일러스트 북커버 공모전", host: "책마루출판", hostType: "중견/중소기업", cat: "art", target: ["청소년"], prize: 240, first: 80, start: -8, end: 23, views: 3380, scraps: 241, benefit: ["전시 기회"] },
-  { title: "제9회 학생 만화 공모전", host: "만화진흥원", hostType: "정부/공공기관", cat: "art", target: ["청소년"], prize: 350, first: 100, start: -16, end: 13, views: 4470, scraps: 309, benefit: ["상장 수여", "전시 기회"] },
-  { title: "미래 과학 상상화 그리기", host: "국립과학관", hostType: "정부/공공기관", cat: "art", target: ["청소년"], prize: 150, first: 50, start: -10, end: 16, views: 2650, scraps: 133, benefit: ["상장 수여"] },
-  { title: "청소년 그림 공모전 '우리 가족'", host: "다온복지재단", hostType: "비영리/협회", cat: "art", target: ["청소년"], prize: 120, first: 40, start: -6, end: 10, views: 1880, scraps: 79, benefit: ["상장 수여"] },
-  { title: "청소년 벽화 디자인 공모", host: "도담대학교", hostType: "대학교", cat: "art", target: ["청소년", "대학생"], prize: 360, first: 120, start: -4, end: 25, views: 2970, scraps: 158, benefit: ["전시 기회"] },
+  { title: "청소년 환경 포스터 공모전 '숨 쉬는 지구'", host: "기후에너지청", hostType: "정부/공공기관", cat: "art", target: ["청소년"], prize: 100, first: 30, start: -7, end: 9, views: 2210, scraps: 98, benefit: ["상장 수여"] },
+  { title: "우리 동네 풍경 그리기 대회", host: "가람구청", hostType: "지자체", cat: "art", target: ["청소년"], prize: 60, first: 20, start: -9, end: 4, views: 1320, scraps: 41, benefit: ["상장 수여"] },
+  /* 이미 마감된 공모전 (S#3 알림의 그 공모전). '마감된 공모전 숨기기'가 켜져 있으면 안 보임 */
   { title: "아워데이즈 〈우리들의 지구〉 캠페인 공모전", host: "아워데이즈", hostType: "중견/중소기업", cat: "art", target: ["누구나"], prize: 500, first: 200, start: -60, end: -21, views: 15020, scraps: 1320, benefit: ["상장 수여", "전시 기회"], theme: "우리들의 지구" },
 );
 
