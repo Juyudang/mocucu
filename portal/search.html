@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>검색</title>
+  <link rel="stylesheet" href="assets/portal.css">
+</head>
+<body data-page="search">
+<div class="page results">
+  <header class="s-head">
+    <div class="s-head-row">
+      <a class="logo" href="index.html"></a>
+      <form action="search.html">
+        <input type="search" name="query" id="q" autocomplete="off" enterkeyhint="search">
+        <button type="button" class="clear" id="clearQ" aria-label="지우기">✕</button>
+        <button class="s-btn" aria-label="검색"><svg viewBox="0 0 24 24" width="24" height="24"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M15.5 15.5l5 5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button>
+      </form>
+    </div>
+    <nav class="s-tabs">
+      <a href="#" class="on">통합</a><a href="#" data-toast="준비 중입니다">뉴스</a><a href="#" data-toast="준비 중입니다">이미지</a>
+      <a href="#" data-toast="준비 중입니다">블로그</a><a href="#" data-toast="준비 중입니다">카페</a><a href="#" data-toast="준비 중입니다">동영상</a>
+      <a href="#" data-toast="준비 중입니다">지식iN</a><a href="#" data-toast="준비 중입니다">쇼핑</a>
+    </nav>
+  </header>
+  <section class="section">
+    <h2 class="sec-title">뉴스 <small>관련도순 ⌄</small></h2>
+    <div id="news"></div>
+    <a class="more-btn" href="#" data-toast="준비 중입니다">뉴스 더보기 →</a>
+  </section>
+  <section class="section">
+    <h2 class="sec-title">이미지</h2>
+    <div class="img-strip" id="images"></div>
+  </section>
+  <section class="section">
+    <h2 class="sec-title">연관 검색어</h2>
+    <div class="related" id="related"></div>
+  </section>
+</div>
+  <script src="assets/data.js"></script>
+  <script src="assets/portal.js"></script>
+</body>
+</html>

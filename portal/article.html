@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>뉴스</title>
+  <link rel="stylesheet" href="assets/portal.css">
+</head>
+<body data-page="article">
+<div class="page">
+  <header class="n-head">
+    <a class="back" href="search.html" data-back aria-label="뒤로"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <span class="logo"></span><span class="sub" data-brand-news></span>
+    <span class="right"><span>🔍</span><span>☰</span></span>
+  </header>
+  <div class="press-bar"><span class="press-logo" id="press"></span><a class="sub-btn" href="#" data-toast="구독했습니다">+ 구독</a></div>
+  <h1 class="a-title" id="title"></h1>
+  <div class="a-meta">
+    <div><span class="rep" id="rep"></span><br><span id="stamp"></span></div>
+    <div class="a-tools">
+      <a href="comments.html">💬 <span id="cmtCount"></span></a>
+      <a href="#" data-toast="링크가 복사되었습니다">⤴︎</a>
+      <a href="#" data-toast="글자 크기를 변경했습니다">가</a>
+    </div>
+  </div>
+  <article class="a-body" id="body"></article>
+  <div class="reporter-card" id="repCard"></div>
+  <div class="reacts"><h4>이 기사를 추천합니다</h4><ul id="reacts"></ul></div>
+  <a class="cmt-entry" href="comments.html">
+    <div>댓글 <span id="cmtCount2"></span><span class="preview" id="cmtPreview"></span></div>
+    <span>›</span>
+  </a>
+  <div class="a-foot">Copyright ⓒ 하늘일보. All rights reserved. 무단 전재 및 재배포 금지.<br>※ 촬영용 가상 화면입니다.</div>
+</div>
+  <script src="assets/data.js"></script>
+  <script src="assets/portal.js"></script>
+</body>
+</html>

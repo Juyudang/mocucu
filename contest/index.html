@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>모아콘 - 대한민국 공모전 · 대외활동 플랫폼</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <!-- 상단 유틸 바 -->
+  <div class="util-bar">
+    <div class="container util-inner">
+      <span>대학생 · 취준생을 위한 공모전 플랫폼 <b>모아콘</b></span>
+      <nav>
+        <a href="#" data-toast="로그인이 필요한 서비스입니다.">로그인</a>
+        <a href="#" data-toast="회원가입 페이지 준비 중입니다.">회원가입</a>
+        <a href="#" data-toast="고객센터 운영시간: 평일 10:00~18:00">고객센터</a>
+        <a href="#" class="host-link" data-toast="공모전 등록 문의: help@moacon.example">공모전 등록하기</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- 헤더 -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo" id="logoHome">
+        <span class="logo-mark">M</span>
+        <span class="logo-text">모아콘<small>MOACON</small></span>
+      </a>
+      <form class="search" id="searchForm">
+        <input type="search" id="searchInput" placeholder="관심있는 공모전을 검색해보세요 (예: 영상, 아이디어, 서포터즈)" autocomplete="off">
+        <button type="submit" aria-label="검색">
+          <svg viewBox="0 0 24 24" width="20" height="20"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+        </button>
+      </form>
+      <div class="header-actions">
+        <button class="icon-btn" id="scrapListBtn" title="즐겨찾기">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          <span class="badge" id="scrapCount">0</span>
+        </button>
+        <div class="avatar" title="내 정보">나</div>
+      </div>
+    </div>
+    <nav class="gnb">
+      <div class="container gnb-inner">
+        <a href="#" class="active">공모전</a>
+        <a href="#" data-toast="대외활동 메뉴는 준비 중입니다.">대외활동</a>
+        <a href="#" data-toast="동아리 메뉴는 준비 중입니다.">동아리</a>
+        <a href="#" data-toast="교육·강연 메뉴는 준비 중입니다.">교육 · 강연</a>
+        <a href="#" data-toast="채용 메뉴는 준비 중입니다.">채용 · 인턴</a>
+        <a href="#" data-toast="커뮤니티 메뉴는 준비 중입니다.">팀원모집</a>
+        <a href="#" data-toast="수상작 갤러리는 준비 중입니다.">수상작 갤러리</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container main">
+    <!-- 배너 -->
+    <section class="banner" id="banner">
+      <div class="banner-track" id="bannerTrack"></div>
+      <div class="banner-dots" id="bannerDots"></div>
+    </section>
+
+    <!-- 분야 아이콘 -->
+    <section class="cat-strip" id="catStrip"></section>
+
+    <div class="layout">
+      <!-- 필터 사이드바 -->
+      <aside class="filters" id="filters">
+        <div class="filter-head">
+          <h3>상세 검색</h3>
+          <button class="reset" id="resetFilters">초기화</button>
+        </div>
+        <div class="filter-group">
+          <h4>응모 대상</h4>
+          <div class="chips" data-filter="target"></div>
+        </div>
+        <div class="filter-group">
+          <h4>주최사</h4>
+          <div class="chips" data-filter="hostType"></div>
+        </div>
+        <div class="filter-group">
+          <h4>시상 규모</h4>
+          <div class="chips" data-filter="prize"></div>
+        </div>
+        <div class="filter-group">
+          <h4>혜택</h4>
+          <div class="chips" data-filter="benefit"></div>
+        </div>
+        <label class="check">
+          <input type="checkbox" id="hideClosed" checked> 마감된 공모전 숨기기
+        </label>
+      </aside>
+
+      <!-- 목록 -->
+      <section class="list-area">
+        <div class="list-head">
+          <h2 id="listTitle">전체 공모전 <em id="resultCount">0</em>건</h2>
+          <div class="list-tools">
+            <div class="tabs" id="sortTabs">
+              <button data-sort="latest" class="on">최신순</button>
+              <button data-sort="deadline">마감임박순</button>
+              <button data-sort="views">조회순</button>
+              <button data-sort="prize">상금순</button>
+            </div>
+            <div class="view-toggle">
+              <button data-view="grid" class="on" title="카드형">▦</button>
+              <button data-view="list" title="리스트형">☰</button>
+            </div>
+          </div>
+        </div>
+        <div class="active-filters" id="activeFilters"></div>
+        <div class="cards grid" id="cards"></div>
+        <div class="empty" id="empty" hidden>
+          <p>조건에 맞는 공모전이 없어요 🥲</p>
+          <button class="btn-outline" id="emptyReset">필터 초기화</button>
+        </div>
+        <div class="pagination" id="pagination"></div>
+      </section>
+
+      <!-- 우측 랭킹 -->
+      <aside class="side-right">
+        <div class="box">
+          <h3>🔥 실시간 인기 공모전</h3>
+          <ol class="rank" id="rankList"></ol>
+        </div>
+        <div class="box">
+          <h3>⏰ 마감 임박</h3>
+          <ul class="mini" id="todayList"></ul>
+        </div>
+        <div class="box ad">
+          <p class="ad-label">AD</p>
+          <strong>공모전 수상작<br>포트폴리오 첨삭</strong>
+          <span>현직 심사위원 1:1 피드백</span>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="#">회사소개</a><a href="#">이용약관</a><a href="#"><b>개인정보처리방침</b></a><a href="#">광고문의</a><a href="#">제휴문의</a>
+      </div>
+      <p>(주)모아콘 | 대표 김모아 | 서울특별시 가상구 공모로 123, 7층 | 사업자등록번호 000-00-00000</p>
+      <p>※ 본 사이트는 영상 촬영용으로 제작된 가상의 사이트이며, 게시된 공모전 및 기관명은 모두 허구입니다.</p>
+      <p class="copy">© MOACON Corp. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/common.js"></script>
+  <script src="assets/list.js"></script>
+</body>
+</html>

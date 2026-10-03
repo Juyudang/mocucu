@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>댓글</title>
+  <link rel="stylesheet" href="assets/portal.css">
+</head>
+<body data-page="comments">
+<div class="page">
+  <header class="n-head">
+    <a class="back" href="article.html" data-back aria-label="뒤로"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <span class="sub" style="margin:0">댓글</span>
+  </header>
+  <div class="c-sum">댓글 <span id="cmtCount"></span><small id="cmtTitle" style="max-width:55%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis"></small></div>
+  <div class="c-write">댓글을 입력해주세요</div>
+  <div class="cleanbot">🤖 <b>클린봇</b>이 악성댓글을 감지합니다. ⓘ</div>
+  <div class="c-sort"><span class="on">순공감순</span><span>최신순</span><span>공감비율순</span></div>
+  <ul class="c-list" id="list"></ul>
+  <a class="c-more" href="#" data-toast="더 이상 댓글이 없습니다">댓글 더보기 ⌄</a>
+</div>
+  <script src="assets/data.js"></script>
+  <script src="assets/portal.js"></script>
+</body>
+</html>

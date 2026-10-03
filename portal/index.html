@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>NURI</title>
+  <link rel="stylesheet" href="assets/portal.css">
+</head>
+<body data-page="home">
+<div class="page">
+  <div class="home-top">
+    <span class="logo"></span>
+    <span class="icons"><span>✉️</span><span>🔔</span><span>☰</span></span>
+  </div>
+  <form class="home-search" action="search.html">
+    <div class="sbox">
+      <span class="n-mark">N</span>
+      <input type="search" name="query" placeholder="검색어를 입력해 주세요." autocomplete="off" enterkeyhint="search">
+      <button class="s-btn" aria-label="검색"><svg viewBox="0 0 24 24" width="24" height="24"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M15.5 15.5l5 5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button>
+    </div>
+  </form>
+  <nav class="shortcuts">
+    <a href="#" data-toast="준비 중입니다"><i>✉️</i>메일</a>
+    <a href="#" data-toast="준비 중입니다"><i>☕</i>카페</a>
+    <a href="#" data-toast="준비 중입니다"><i>📝</i>블로그</a>
+    <a href="#" data-toast="준비 중입니다"><i>🛍️</i>쇼핑</a>
+    <a href="#" data-toast="준비 중입니다"><i>📰</i>뉴스</a>
+    <a href="#" data-toast="준비 중입니다"><i>📈</i>증권</a>
+    <a href="#" data-toast="준비 중입니다"><i>🏠</i>부동산</a>
+    <a href="#" data-toast="준비 중입니다"><i>🗺️</i>지도</a>
+    <a href="#" data-toast="준비 중입니다"><i>📚</i>웹툰</a>
+    <a href="#" data-toast="준비 중입니다"><i>⋯</i>더보기</a>
+  </nav>
+  <div class="feed-tabs"><span class="on">뉴스</span><span>엔터</span><span>스포츠</span><span>경제</span></div>
+  <ul class="feed" id="feed"></ul>
+</div>
+  <script src="assets/data.js"></script>
+  <script src="assets/portal.js"></script>
+</body>
+</html>
