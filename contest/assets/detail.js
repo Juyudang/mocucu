@@ -48,7 +48,7 @@
       </header>
 
       <div class="dt-top">
-        <div class="dt-poster">${poster(c, true)}<a class="zoom" href="#" data-toast="포스터 원본을 불러오는 중입니다…">🔍 포스터 크게보기</a></div>
+        <div class="dt-poster">${poster(c, true)}<a class="zoom" href="#posterViewer" aria-haspopup="dialog">포스터 크게보기 ＋</a></div>
         <div class="dt-info">
           <table class="info-tbl">
             <tr><th>주최</th><td>${c.host}</td></tr>
@@ -105,7 +105,22 @@
         <h3>문의처</h3>
         <p>${c.host} 공모전 사무국 (contest@${c.id}host.example / 02-000-${String(1000 + c.id * 37).slice(-4)})</p>
       </section>
-      <div class="list-btns"><a href="index.html" data-back>목록</a><a class="dark" href="#" onclick="scrollTo({top:0});return false">맨위로</a></div>`;
+      <div class="list-btns"><a href="index.html" data-back>목록</a><a class="dark" href="#" onclick="scrollTo({top:0});return false">맨위로</a></div>
+      <dialog class="poster-dialog" id="posterViewer" aria-labelledby="posterViewerTitle">
+        <div class="poster-dialog-head"><h2 id="posterViewerTitle">공모전 포스터</h2><button type="button" id="closePoster" autofocus>닫기 ×</button></div>
+        ${poster(c, true)}
+      </dialog>`;
+
+    const viewer = $("#posterViewer");
+    $(".zoom").addEventListener("click", (e) => {
+      e.preventDefault();
+      viewer.showModal();
+    });
+    $("#closePoster").addEventListener("click", () => viewer.close());
+    viewer.addEventListener("click", (e) => {
+      const r = viewer.getBoundingClientRect();
+      if (e.target === viewer && (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)) viewer.close();
+    });
 
     $("#favBtn").addEventListener("click", (e) => {
       const on = toggleFav(c.id);
