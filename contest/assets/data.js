@@ -78,13 +78,13 @@ window.CONTESTS = [
    first = 대상 상금(만원), theme = 공모 주제 */
 window.CONTESTS.unshift(
   /* 기본 정렬(최신순)에서 45만 → 90만 → 180만 순서로 위에서부터 보이도록 start 값을 맞춤 */
-  { scene: "45",  title: "제7회 푸른꿈 청소년 그림 공모전 '나의 내일'", host: "푸른꿈청소년재단", hostType: "비영리/협회", cat: "art", target: ["청소년"], prize: 150, first: 45, start: -2, end: 12, views: 4120, scraps: 233, benefit: ["상장 수여"], theme: "10년 뒤 나의 하루" },
-  { scene: "90",  title: "2026 전국 청소년 미술대전 '빛과 그림자'", host: "한국청소년미술협회", hostType: "비영리/협회", cat: "art", target: ["청소년"], prize: 300, first: 90, start: -3, end: 17, views: 6380, scraps: 412, benefit: ["상장 수여", "전시 기회"], theme: "빛과 그림자" },
-  { scene: "180", title: "제5회 한빛 청소년 미술 공모전", host: "한빛문화재단", hostType: "비영리/협회", cat: "art", target: ["청소년"], prize: 600, first: 180, start: -4, end: 21, views: 9874, scraps: 871, benefit: ["상장 수여", "전시 기회", "해외연수"], hot: true, theme: "현대사회 속 인간성의 회복" },
-  { title: "청소년 환경 포스터 공모전 '숨 쉬는 지구'", host: "기후에너지청", hostType: "정부/공공기관", cat: "art", target: ["청소년"], prize: 100, first: 30, start: -7, end: 9, views: 2210, scraps: 98, benefit: ["상장 수여"] },
-  { title: "우리 동네 풍경 그리기 대회", host: "가람구청", hostType: "지자체", cat: "art", target: ["청소년"], prize: 60, first: 20, start: -9, end: 4, views: 1320, scraps: 41, benefit: ["상장 수여"] },
+  { posterDesign: "tomorrow", scene: "45",  title: "제7회 푸른꿈 청소년 그림 공모전 '나의 내일'", host: "푸른꿈청소년재단", hostType: "비영리/협회", cat: "art", target: ["청소년"], prize: 150, first: 45, start: -2, end: 12, views: 4120, scraps: 233, benefit: ["상장 수여"], theme: "10년 뒤 나의 하루" },
+  { posterDesign: "light", scene: "90",  title: "2026 전국 청소년 미술대전 '빛과 그림자'", host: "한국청소년미술협회", hostType: "비영리/협회", cat: "art", target: ["청소년"], prize: 300, first: 90, start: -3, end: 17, views: 6380, scraps: 412, benefit: ["상장 수여", "전시 기회"], theme: "빛과 그림자" },
+  { posterDesign: "humanity", scene: "180", title: "제5회 한빛 청소년 미술 공모전", host: "한빛문화재단", hostType: "비영리/협회", cat: "art", target: ["청소년"], prize: 600, first: 180, start: -4, end: 21, views: 9874, scraps: 871, benefit: ["상장 수여", "전시 기회", "해외연수"], hot: true, theme: "현대사회 속 인간성의 회복" },
+  { posterDesign: "earth", title: "청소년 환경 포스터 공모전 '숨 쉬는 지구'", host: "기후에너지청", hostType: "정부/공공기관", cat: "art", target: ["청소년"], prize: 100, first: 30, start: -7, end: 9, views: 2210, scraps: 98, benefit: ["상장 수여"] },
+  { posterDesign: "neighborhood", title: "우리 동네 풍경 그리기 대회", host: "가람구청", hostType: "지자체", cat: "art", target: ["청소년"], prize: 60, first: 20, start: -9, end: 4, views: 1320, scraps: 41, benefit: ["상장 수여"] },
   /* 이미 마감된 공모전 (S#3 알림의 그 공모전). '마감된 공모전 숨기기'가 켜져 있으면 안 보임 */
-  { title: "아워데이즈 〈우리들의 지구〉 캠페인 공모전", host: "아워데이즈", hostType: "중견/중소기업", cat: "art", target: ["누구나"], prize: 500, first: 200, start: -60, end: -21, views: 15020, scraps: 1320, benefit: ["상장 수여", "전시 기회"], theme: "우리들의 지구" },
+  { posterDesign: "ourdays", title: "아워데이즈 〈우리들의 지구〉 캠페인 공모전", host: "아워데이즈", hostType: "중견/중소기업", cat: "art", target: ["누구나"], prize: 500, first: 200, start: -60, end: -21, views: 15020, scraps: 1320, benefit: ["상장 수여", "전시 기회"], theme: "우리들의 지구" },
 );
 
 window.BANNERS = [
