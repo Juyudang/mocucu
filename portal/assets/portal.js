@@ -53,7 +53,8 @@
       down: (h >>> (i + 3)) % 20, replies: (h >>> (i + 5)) % 6,
     })).sort((a, b) => b.up - a.up);
   }
-  const thumbFor = (n) => (n.id.startsWith("j") ? art(n.palette) : photo(n.palette, n.id));
+  const thumbFor = (n) => (n.useArticleImage && ARTICLE.image ? articleImage("thumb")
+    : n.id.startsWith("j") ? art(n.palette) : photo(n.palette, n.id));
   function newsCard(n, q = "") {
     return `<a class="news-item" href="article.html?id=${n.id}">
           <div class="ni-press"><span class="pm" style="background:#6b7280">${n.press.slice(0, 2)}</span>${n.press}<span class="dot">·</span>${ago(n.min)}</div>
@@ -103,7 +104,7 @@
           </a>`
         : newsCard(n, q)).join("");
       $("#related").innerHTML = RELATED_SEARCHES.map((r) => `<a href="search.html?query=${encodeURIComponent(r)}">${esc(r)}</a>`).join("");
-      $("#images").innerHTML = [["#fde68a", "#f472b6"], ["#a7f3d0", "#60a5fa"], ["#e9d5ff", "#818cf8"]].map(art).join("");
+      $("#images").innerHTML = (ARTICLE.image ? articleImage("thumb") : art(["#fde68a", "#f472b6"])) + [["#a7f3d0", "#60a5fa"], ["#e9d5ff", "#818cf8"]].map((p) => art(p)).join("");
     } else {
       const words = q.split(/\s+/).filter(Boolean);
       const hits = words.length ? DUMMY_NEWS.filter((n) => words.some((w) => `${n.title} ${n.summary} ${n.press}`.includes(w))) : [];
